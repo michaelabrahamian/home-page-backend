@@ -1,16 +1,16 @@
-import express from "express";
-import { graphqlHTTP } from "express-graphql";
-import { schema } from "./schema";
-import { PORT } from "./config";
+import { ApolloServer, gql } from 'apollo-server';
+import { typeDefs } from './schema';
+import { WeatherAPI } from './datasources/weather';
+import { resolvers } from './resolvers';
 
-const app = express();
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  dataSources: () => ({
+    weatherAPI: new WeatherAPI(),
+  }),
+});
 
-app.use(
-  "/graphql",
-  graphqlHTTP({
-    schema,
-    graphiql: true,
-  })
-);
-
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+server.listen().then(({ url }) => {
+  console.log(`🚀  Server ready at ${url}`);
+});
