@@ -4,7 +4,6 @@ import { WEATHER_API_KEY } from '../config';
 const OPEN_WEATHER_MAP_BASE_API_URL = 'http://api.openweathermap.org/data/2.5';
 
 const UNIT = 'metric';
-
 export class WeatherAPI extends RESTDataSource {
   constructor() {
     super();
@@ -39,11 +38,11 @@ export class WeatherAPI extends RESTDataSource {
   }
 }
 
-type GetWeatherArgs = {
+export type GetWeatherArgs = {
   location: string;
 };
 
-type WeatherFormatted = {
+export type WeatherFormatted = {
   location: string;
   icon: string;
   shortDescription: string;
