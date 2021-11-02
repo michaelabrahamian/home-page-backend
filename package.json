@@ -8,7 +8,9 @@
     "test:watch": "npm run test -- --watch",
     "start": "babel-node src/server.ts --extensions \".ts\"",
     "tsc": "tsc --noEmit",
-    "build": "npm run tsc && babel src -d dist --extensions \".ts\""
+    "build": "npm run tsc && babel src -d dist --extensions \".ts\"",
+    "docker:build": "docker build -t home-page-backend .",
+    "docker:run": "docker run --env-file ./.env --rm -p 4000:4000 home-page-backend"
   },
   "author": "Michael Abrahamian",
   "license": "ISC",
