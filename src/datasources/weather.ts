@@ -1,7 +1,8 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 import { WEATHER_API_KEY } from '../config';
+import { WeatherFormatted, WeatherResponse } from '../types/weather';
 
-const OPEN_WEATHER_MAP_BASE_API_URL = 'http://api.openweathermap.org/data/2.5';
+export const OPEN_WEATHER_MAP_BASE_API_URL = 'http://api.openweathermap.org/data/2.5';
 
 const UNIT = 'metric';
 export class WeatherAPI extends RESTDataSource {
@@ -11,7 +12,7 @@ export class WeatherAPI extends RESTDataSource {
   }
 
   async getWeather({ location }: GetWeatherArgs): Promise<WeatherFormatted> {
-    const response = await this.get('weather', {
+    const response: WeatherResponse = await this.get('weather', {
       q: location,
       appid: WEATHER_API_KEY,
       units: UNIT,
@@ -42,62 +43,3 @@ export type GetWeatherArgs = {
   location: string;
 };
 
-export type WeatherFormatted = {
-  location: string;
-  icon: string;
-  shortDescription: string;
-  longDescription: string;
-  temperature: {
-    average: number;
-    min: number;
-    max: number;
-    feelsLike: number;
-  };
-  windSpeed: number;
-  humidity: number;
-};
-
-type WeatherResponse = {
-  coord: {
-    lon: number;
-    lat: number;
-  };
-  weather: [
-    {
-      id: number;
-      main: string;
-      description: string;
-      icon: string;
-    }
-  ];
-  base: string;
-  main: {
-    temp: number;
-    feels_like: number;
-    temp_min: number;
-    temp_max: number;
-    pressure: number;
-    humidity: number;
-  };
-  visibility: number;
-  wind: {
-    speed: number;
-    deg: number;
-    gust: number;
-  };
-  clouds: {
-    all: number;
-  };
-  dt: number;
-  sys: {
-    type: number;
-    id: number;
-    country: string;
-    sunrise: number;
-    sunset: number;
-  };
-  timezone: number;
-  id: number;
-  name: string;
-  cod: number;
-};
