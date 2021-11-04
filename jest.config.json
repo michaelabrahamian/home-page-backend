@@ -1,3 +1,9 @@
 {
-  "testPathIgnorePatterns": ["<rootDir>/dist/", "<rootDir>/node_modules/"]
+  "setupFilesAfterEnv": [
+    "<rootDir>/src/setupTests.ts"
+  ],
+  "testPathIgnorePatterns": [
+    "<rootDir>/dist/",
+    "<rootDir>/node_modules/"
+  ]
 }

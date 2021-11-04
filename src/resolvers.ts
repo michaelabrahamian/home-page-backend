@@ -3,9 +3,9 @@ import type { IResolvers } from '@graphql-tools/utils';
 
 import {
   GetWeatherArgs,
-  WeatherFormatted,
   WeatherAPI,
 } from './datasources/weather';
+import { WeatherFormatted } from './types/weather';
 
 type Context = ApolloContext<{ dataSources: { weatherAPI: WeatherAPI } }>;
 
