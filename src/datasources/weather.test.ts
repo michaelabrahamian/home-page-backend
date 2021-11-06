@@ -1,19 +1,8 @@
 import { WeatherAPI } from '../datasources/weather';
 import { WeatherResponse, WeatherFormatted } from '../types/weather';
+import { initDataSource } from '../test-utils/datasource-utils';
 
-const initWeatherAPI = () => {
-  const weatherAPI = new WeatherAPI();
-  weatherAPI.initialize({
-    context: {},
-    cache: {
-      get: jest.fn(),
-      set: jest.fn(),
-      delete: jest.fn(),
-    },
-  });
-
-  return weatherAPI;
-};
+const initWeatherAPI = () => initDataSource(new WeatherAPI());
 
 describe('Weather datasource', () => {
   it('reduces a response payload correctly', () => {
@@ -59,7 +48,7 @@ describe('Weather datasource', () => {
       windSpeed: 4.52,
     };
 
-    const result = weatherAPI.weatherReducer(response);
+    const result = weatherAPI.reduceWeather(response);
 
     expect(result).toEqual(expectedParsedWeather);
   });

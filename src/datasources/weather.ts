@@ -2,9 +2,13 @@ import { RESTDataSource } from 'apollo-datasource-rest';
 import { WEATHER_API_KEY } from '../config';
 import { WeatherFormatted, WeatherResponse } from '../types/weather';
 
-export const OPEN_WEATHER_MAP_BASE_API_URL = 'http://api.openweathermap.org/data/2.5';
+export const OPEN_WEATHER_MAP_BASE_API_URL =
+  'http://api.openweathermap.org/data/2.5';
+
+export const WEATHER_ENDPOINT = 'weather';
 
 const UNIT = 'metric';
+
 export class WeatherAPI extends RESTDataSource {
   constructor() {
     super();
@@ -12,16 +16,16 @@ export class WeatherAPI extends RESTDataSource {
   }
 
   async getWeather({ location }: GetWeatherArgs): Promise<WeatherFormatted> {
-    const response: WeatherResponse = await this.get('weather', {
+    const response: WeatherResponse = await this.get(WEATHER_ENDPOINT, {
       q: location,
       appid: WEATHER_API_KEY,
       units: UNIT,
     });
 
-    return this.weatherReducer(response);
+    return this.reduceWeather(response);
   }
 
-  weatherReducer(weatherResponse: WeatherResponse): WeatherFormatted {
+  reduceWeather(weatherResponse: WeatherResponse): WeatherFormatted {
     return {
       location: weatherResponse.name,
       icon: weatherResponse.weather[0]?.icon,
@@ -42,4 +46,3 @@ export class WeatherAPI extends RESTDataSource {
 export type GetWeatherArgs = {
   location: string;
 };
-
