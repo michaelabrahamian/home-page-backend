@@ -1,10 +1,6 @@
 name: CI
 
-on:
-  push:
-    branches:
-      - main
-      - feat/ci-test-workflow
+on: push
 
 # env:
 #   AWS_REGION: ap-southeast-2
