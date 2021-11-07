@@ -18,7 +18,20 @@ export const typeDefs = gql`
     humidity: Int
   }
 
+  type NewsItem {
+    id: String
+    title: String
+    url: String
+    publicationDate: String
+    category: String
+  }
+
+  type News {
+    results: [NewsItem]
+  }
+
   type Query {
     weather(location: String): Weather
+    news(query: String): News
   }
 `;

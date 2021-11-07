@@ -1,8 +1,8 @@
 export type NewsContentFormatted = {
-  results: Array<NewsResultFormatted>;
+  results: Array<NewsItemFormatted>;
 };
 
-export type NewsResultFormatted = {
+export type NewsItemFormatted = {
   id: string;
   title: string;
   url: string;
@@ -20,11 +20,11 @@ export type NewsContentResponse = {
     currentPage: number;
     pages: number;
     orderBy: string;
-    results: Array<NewsResultResponse>;
+    results: Array<NewsItemResponse>;
   };
 };
 
-export type NewsResultResponse = {
+export type NewsItemResponse = {
   id: string;
   type: string;
   sectionId: string;
