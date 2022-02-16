@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "test:watch": "npm run test -- --watch",
-    "start": "babel-node src/server.ts --extensions \".ts\"",
+    "start": "nodemon --exec babel-node src/server.ts --extensions \".ts\"",
     "tsc": "tsc --noEmit",
     "build": "npm run tsc && babel src -d dist --extensions \".ts\"",
     "docker:build": "docker build -t home-page-backend .",
