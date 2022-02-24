@@ -14,6 +14,23 @@ const GET_NEWS = `query GetNews($query: String) {
   }
 }`;
 
+const GET_WEATHER = `query GetWeather($location: String) {
+  weather(location: $location) {
+    location
+    icon
+    shortDescription
+    longDescription
+    windSpeed
+    humidity
+    temperature {
+      average
+      max
+      feelsLike
+      min
+    }
+  }
+}`;
+
 describe('GraphQL server', () => {
   it('returns a correct news response', async () => {
     const result = await apolloServer.executeOperation({
@@ -69,5 +86,33 @@ describe('GraphQL server', () => {
     expect(error.extensions.code).toMatchInlineSnapshot(
       `"INTERNAL_SERVER_ERROR"`
     );
+  });
+
+  it('returns a correct weather resposne', async () => {
+    const result = await apolloServer.executeOperation({
+      query: GET_WEATHER,
+      variables: { location: 'TEST_LOCATION' },
+    });
+
+    expect(result.errors).toBeUndefined();
+
+    const expectedResult = {
+      weather: {
+        humidity: 84,
+        icon: '01d',
+        location: 'Sydney',
+        longDescription: 'clear sky',
+        shortDescription: 'Clear',
+        temperature: {
+          average: 291.96,
+          feelsLike: 292.09,
+          max: 294.32,
+          min: 289.68,
+        },
+        windSpeed: 2.24,
+      },
+    };
+
+    expect(result.data).toMatchObject(expectedResult);
   });
 });
