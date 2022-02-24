@@ -5,7 +5,7 @@ import { SERVER_PORT } from './config';
 import { WeatherAPI } from './datasources/weather';
 import { NewsAPI } from './datasources/news';
 
-const server = new ApolloServer({
+export const server = new ApolloServer({
   typeDefs,
   resolvers,
   dataSources: () => ({
